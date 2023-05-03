@@ -3,8 +3,19 @@ import SocialLoginBtn from "../../components/SocialLoginBtn";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/hook";
 
 const Login = () => {
+  const { createNewUserWithGoogle } = useAuth();
+
+  // handle google sign in
+  const handleGoogleSignIn = () => {
+    createNewUserWithGoogle()
+      .then((userCredential) => {
+        console.log(userCredential.user);
+      })
+      .catch((err) => console.log(err.message));
+  };
   return (
     <div className=" min-h-screen bg-base-200">
       <div className="hero-content ">
@@ -14,6 +25,7 @@ const Login = () => {
             <div className="flex justify-evenly">
               <div>
                 <SocialLoginBtn
+                  handleClick={handleGoogleSignIn}
                   icon={
                     <FcGoogle
                       size={20}

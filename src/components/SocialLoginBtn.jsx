@@ -1,8 +1,11 @@
 import React from "react";
 
-const SocialLoginBtn = ({ children, icon }) => {
+const SocialLoginBtn = ({ children, icon, handleClick }) => {
   return (
-    <button className="btn capitalize">
+    <button
+      onClick={handleClick}
+      className="btn capitalize"
+    >
       {icon}
       {children}
     </button>
