@@ -77,8 +77,14 @@ const Login = () => {
               </div>
               <div className="mt-6">
                 <p>
-                  Don't have and account? 
-                  <Link className="text-secondary" to="/signUp"> Sign up</Link>
+                  Don't have and account?
+                  <Link
+                    className="text-secondary"
+                    to="/signUp"
+                  >
+                    {" "}
+                    Sign up
+                  </Link>
                 </p>
               </div>
             </form>
