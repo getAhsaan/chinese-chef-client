@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
   signInWithPopup,
@@ -43,11 +44,17 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  // create user with email and password
+  const createNewUser = (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
+
   // auth info
   const authInfo = {
     user,
     createNewUserWithGoogle,
     createNewUserWithGithub,
+    createNewUser,
     logOut,
   };
   return (

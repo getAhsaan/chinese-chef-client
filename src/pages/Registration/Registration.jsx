@@ -1,14 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/hook";
+import { updateProfile } from "firebase/auth";
 
 const Registration = () => {
+  const [err, setErr] = useState("");
+  const { createNewUser } = useAuth();
+
+  // handleCreateUser
+  const handleCreateUser = async (e) => {
+    e.preventDefault();
+    setErr("");
+
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const photoUrl = form.photoUrl.value;
+
+    if (password.length < 6) {
+      setErr("password must be 6 char long");
+      return;
+    }
+    if (email && password) {
+      const loggedUser = await createNewUser(email, password)
+        .then((userCredential) => {
+          console.log(userCredential.user);
+          return userCredential.user;
+        })
+        .catch((err) => {
+          setErr(err.message);
+        });
+
+      await updateProfile(loggedUser, {
+        displayName: name,
+        photoURL: photoUrl,
+      })
+        .then((user) => {
+          console.log(user, "profile updated");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
   return (
     <div className=" min-h-screen bg-base-200">
       <div className="hero-content ">
         <div className="card w-full lg:w-1/2 shadow-2xl bg-base-100">
           <div className="card-body">
             <h3 className="text-2xl text-secondary mb-10">Create an Account</h3>
-            <form>
+            <h3 className="text-lg text-red-500">{err}</h3>
+            <form onSubmit={handleCreateUser}>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Name(optional)</span>
@@ -22,7 +65,9 @@ const Registration = () => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Email <sup className="text-secondary text-lg">*</sup></span>
+                  <span className="label-text">
+                    Email <sup className="text-secondary text-lg">*</sup>
+                  </span>
                 </label>
                 <input
                   type="email"
@@ -34,7 +79,9 @@ const Registration = () => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Password <sup className="text-secondary text-lg">*</sup></span>
+                  <span className="label-text">
+                    Password <sup className="text-secondary text-lg">*</sup>
+                  </span>
                 </label>
                 <input
                   type="password"
