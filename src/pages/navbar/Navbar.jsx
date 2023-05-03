@@ -5,8 +5,16 @@ import { useAuth } from "../../hooks/hook";
 import { Tooltip } from "react-tooltip";
 
 const Navbar = () => {
-  const { user } = useAuth();
-  console.log(user);
+  const { user, logOut } = useAuth();
+
+  // handle user log out
+  const handleUserLogOut = () => {
+    logOut()
+      .then(() => {
+        console.log("log out successful");
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="navbar bg-base-100 container mx-auto">
@@ -77,7 +85,7 @@ const Navbar = () => {
                 />
               </div>
             </label>
-            <Button>Logout</Button>
+            <Button handleClick={handleUserLogOut}>Logout</Button>
           </>
         ) : (
           <Link to="/login">
