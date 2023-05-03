@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Button from "../../components/Button";
 import { useAuth } from "../../hooks/hook";
 import { Tooltip } from "react-tooltip";
@@ -60,7 +60,14 @@ const Navbar = () => {
       <div className="navbar-end">
         {user ? (
           <>
-            {user?.displayName && <Tooltip anchorSelect=".show-user-name" place="left">{user?.displayName}</Tooltip>}
+            {user?.displayName && (
+              <Tooltip
+                anchorSelect=".show-user-name"
+                place="left"
+              >
+                {user?.displayName}
+              </Tooltip>
+            )}
             <label className="btn btn-ghost btn-circle avatar mr-2">
               <div className="w-10 rounded-full">
                 <img
@@ -73,7 +80,9 @@ const Navbar = () => {
             <Button>Logout</Button>
           </>
         ) : (
-          <Button>Login</Button>
+          <Link to="/login">
+            <Button>Login</Button>
+          </Link>
         )}
       </div>
     </div>
