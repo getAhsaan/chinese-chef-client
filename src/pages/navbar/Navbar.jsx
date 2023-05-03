@@ -1,8 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Button from "../../components/Button";
+import { useAuth } from "../../hooks/hook";
+import { Tooltip } from "react-tooltip";
 
 const Navbar = () => {
+  const { user } = useAuth();
+  console.log(user);
+
   return (
     <div className="navbar bg-base-100 container mx-auto">
       <div className="navbar-start">
@@ -53,7 +58,23 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <Button>Login</Button>
+        {user ? (
+          <>
+            {user?.displayName && <Tooltip anchorSelect=".show-user-name" place="left">{user?.displayName}</Tooltip>}
+            <label className="btn btn-ghost btn-circle avatar mr-2">
+              <div className="w-10 rounded-full">
+                <img
+                  className="show-user-name"
+                  src={user?.photoURL}
+                  place="left"
+                />
+              </div>
+            </label>
+            <Button>Logout</Button>
+          </>
+        ) : (
+          <Button>Login</Button>
+        )}
       </div>
     </div>
   );
