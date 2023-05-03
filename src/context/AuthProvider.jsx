@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import {
+  GithubAuthProvider,
   GoogleAuthProvider,
   getAuth,
   onAuthStateChanged,
@@ -16,10 +17,15 @@ const AuthProvider = ({ children }) => {
 
   // provider
   const googleProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
 
   // create new user with google
   const createNewUserWithGoogle = () => {
     return signInWithPopup(auth, googleProvider);
+  };
+  // create new user with github
+  const createNewUserWithGithub = () => {
+    return signInWithPopup(auth, githubProvider);
   };
 
   // observer
@@ -41,6 +47,7 @@ const AuthProvider = ({ children }) => {
   const authInfo = {
     user,
     createNewUserWithGoogle,
+    createNewUserWithGithub,
     logOut,
   };
   return (

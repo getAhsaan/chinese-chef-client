@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SocialLoginBtn from "../../components/SocialLoginBtn";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
@@ -6,22 +6,38 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/hook";
 
 const Login = () => {
-  const { createNewUserWithGoogle } = useAuth();
+  const [err, setErr] = useState("");
+
+  const { createNewUserWithGoogle, createNewUserWithGithub } = useAuth();
 
   // handle google sign in
   const handleGoogleSignIn = () => {
+    setErr("");
     createNewUserWithGoogle()
       .then((userCredential) => {
         console.log(userCredential.user);
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => setErr(err.message));
   };
+
+  // handle github sign in
+  const handleGithubSignIn = () => {
+    setErr("");
+    createNewUserWithGithub()
+      .then((userCredential) => {
+        console.log(userCredential.user);
+      })
+      .catch((err) => setErr(err.message));
+  };
+
   return (
     <div className=" min-h-screen bg-base-200">
       <div className="hero-content ">
         <div className="card w-full lg:w-1/2 shadow-2xl bg-base-100">
           <div className="card-body">
-            <h3 className="text-2xl text-secondary mb-10">WelCome Back</h3>
+            <h3 className="text-2xl text-secondary mb-6">WelCome Back</h3>
+            <h3 className="text-lg text-red-500">{err}</h3>
+
             <div className="flex justify-evenly">
               <div>
                 <SocialLoginBtn
@@ -38,6 +54,7 @@ const Login = () => {
               </div>
               <div>
                 <SocialLoginBtn
+                  handleClick={handleGithubSignIn}
                   icon={
                     <FaGithub
                       size={20}
