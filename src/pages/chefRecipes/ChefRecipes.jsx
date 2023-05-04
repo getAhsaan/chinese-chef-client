@@ -43,9 +43,9 @@ const ChefRecipes = () => {
         </figure>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 my-20 container mx-auto">
-        {recipes.map((recipe) => (
+        {recipes.map((recipe, i) => (
           <Recipe
-            key={recipe}
+            key={i}
             recipe={recipe}
             img={picture}
           />
