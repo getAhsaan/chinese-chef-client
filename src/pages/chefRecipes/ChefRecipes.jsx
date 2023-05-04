@@ -2,6 +2,7 @@ import React from "react";
 import { useLoaderData, useNavigation } from "react-router-dom";
 import Recipe from "./Recipe";
 import { CirclesWithBar } from "react-loader-spinner";
+import LazyLoad from "react-lazy-load";
 
 const ChefRecipes = () => {
   const chef = useLoaderData();
@@ -57,10 +58,12 @@ const ChefRecipes = () => {
               </div>
             </div>
             <figure className="lg:w-1/2">
-              <img
-                src={picture}
-                alt={name}
-              />
+              <LazyLoad height={428}>
+                <img
+                  src={picture}
+                  alt={name}
+                />
+              </LazyLoad>
             </figure>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 my-20 container mx-auto">

@@ -1,5 +1,6 @@
 import React from "react";
 import { AiFillLike } from "react-icons/ai";
+import LazyLoad from "react-lazy-load";
 import { Link } from "react-router-dom";
 
 const Chef = ({ chef }) => {
@@ -7,10 +8,12 @@ const Chef = ({ chef }) => {
   return (
     <div className="card w-full bg-base-100 shadow-xl">
       <figure>
-        <img
-          src={picture}
-          alt={name}
-        />
+        <LazyLoad height={280}>
+          <img
+            src={picture}
+            alt={name}
+          />
+        </LazyLoad>
       </figure>
       <div className="card-body">
         <h2 className="card-title mb-0">{name}</h2>
