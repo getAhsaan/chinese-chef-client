@@ -3,6 +3,8 @@ import Banner from "./banner/Banner";
 import { useLoaderData, useNavigation } from "react-router-dom";
 import Chef from "../../components/chef";
 import { CirclesWithBar } from "react-loader-spinner";
+import Newsletter from "../newsletter/Newsletter";
+import Testimonial from "../../components/Testimonial";
 
 const Home = () => {
   const chefs = useLoaderData();
@@ -48,6 +50,12 @@ const Home = () => {
             ))
           )}
         </div>
+      </div>
+      <div>
+        <Testimonial />
+      </div>
+      <div className="bg-white dark:bg-gray-900">
+        <Newsletter />
       </div>
     </div>
   );
