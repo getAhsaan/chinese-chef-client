@@ -1,3 +1,4 @@
+import { Rating } from "@smastrom/react-rating";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -44,6 +45,14 @@ const Recipe = ({ recipe, img }) => {
               {method}
             </li>
           ))}
+        </div>
+        <div className="flex gap-4 items-center">
+          <span>Ratings: </span>
+          <Rating
+            style={{ maxWidth: 130 }}
+            value={rating}
+            readOnly
+          />
         </div>
         <div className="card-actions justify-end">
           <button

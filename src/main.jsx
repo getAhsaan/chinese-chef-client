@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import "react-tooltip/dist/react-tooltip.css";
 import "react-toastify/dist/ReactToastify.css";
+import '@smastrom/react-rating/style.css'
 import { RouterProvider } from "react-router-dom";
 import { routes } from "./routes/Routes";
 import AuthProvider from "./context/AuthProvider";

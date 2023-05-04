@@ -2,16 +2,16 @@ import React from "react";
 import Navbar from "../pages/navbar/Navbar";
 import { Outlet } from "react-router-dom";
 import Footer from "../pages/footer/Footer";
+import ScrollToTopFix from "../components/ScrollToTopFix";
 
 const Main = () => {
   return (
     <div>
+      <ScrollToTopFix />
       <Navbar />
-      <div>
-        <Outlet />
-      </div>
+      <Outlet />
       <div className="bg-base-200">
-      <Footer />
+        <Footer />
       </div>
     </div>
   );

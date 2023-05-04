@@ -17,7 +17,10 @@ export const routes = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => fetch("http://localhost:5000/chefs"),
+        loader: () =>
+          fetch(
+            "https://rococo-florentine-387215.netlify.app/.netlify/functions/api/chefs"
+          ),
       },
       {
         path: "login",
@@ -39,7 +42,9 @@ export const routes = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/chef/${params.id}`),
+          fetch(
+            `https://rococo-florentine-387215.netlify.app/.netlify/functions/api/chef/${params.id}`
+          ),
       },
     ],
   },

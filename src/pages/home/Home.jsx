@@ -10,7 +10,6 @@ const Home = () => {
   const chefs = useLoaderData();
 
   const navigation = useNavigation();
-  console.log(navigation);
 
   return (
     <div>
