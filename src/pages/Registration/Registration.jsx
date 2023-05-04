@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/hook";
 import { updateProfile } from "firebase/auth";
 
 const Registration = () => {
   const [err, setErr] = useState("");
-  const { createNewUser } = useAuth();
+  const { createNewUser, logOut } = useAuth();
+  const navigate = useNavigate();
 
   // handleCreateUser
   const handleCreateUser = async (e) => {
@@ -38,6 +39,14 @@ const Registration = () => {
       })
         .then((user) => {
           console.log(user, "profile updated");
+          toast.success("registration successful");
+          logOut()
+            .then(() => {
+              console.log("logout successful");
+              navigate("/login");
+              console.log("after navigate");
+            })
+            .catch((err) => console.log(err));
         })
         .catch((err) => {
           console.log(err);

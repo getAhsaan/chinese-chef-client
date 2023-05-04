@@ -2,13 +2,22 @@ import React, { useState } from "react";
 import SocialLoginBtn from "../../components/SocialLoginBtn";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/hook";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [err, setErr] = useState("");
+  const navigate = useNavigate();
 
-  const { createNewUserWithGoogle, createNewUserWithGithub } = useAuth();
+  const {
+    createNewUserWithGoogle,
+    createNewUserWithGithub,
+    user,
+    loginNewUser,
+  } = useAuth();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
 
   // handle google sign in
   const handleGoogleSignIn = () => {
@@ -16,6 +25,7 @@ const Login = () => {
     createNewUserWithGoogle()
       .then((userCredential) => {
         console.log(userCredential.user);
+        toast.success("login successful")
       })
       .catch((err) => setErr(err.message));
   };
@@ -26,8 +36,31 @@ const Login = () => {
     createNewUserWithGithub()
       .then((userCredential) => {
         console.log(userCredential.user);
+        toast.success("login successful")
       })
       .catch((err) => setErr(err.message));
+  };
+
+  // handle login
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setErr("");
+
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    if (email && password) {
+      loginNewUser(email, password)
+        .then((result) => {
+          console.log(result.user);
+          toast.success("login successful")
+          navigate(form);
+        })
+        .catch((err) => {
+          setErr(err.message);
+        });
+    }
   };
 
   return (
@@ -71,7 +104,7 @@ const Login = () => {
               <div>or</div>
               <div className="w-full bg-slate-500 h-[2px]"></div>
             </div>
-            <form>
+            <form onSubmit={handleLogin}>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -117,6 +150,7 @@ const Login = () => {
                 </p>
               </div>
             </form>
+            {user && <Navigate to={from} />}
           </div>
         </div>
       </div>
