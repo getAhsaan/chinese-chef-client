@@ -79,7 +79,7 @@ const Navbar = () => {
             <label className="btn btn-ghost btn-circle avatar mr-2">
               <div className="w-10 rounded-full">
                 <img
-                  className="show-user-name"
+                  className="show-user-name hidden lg:block"
                   src={user?.photoURL}
                   place="left"
                 />
