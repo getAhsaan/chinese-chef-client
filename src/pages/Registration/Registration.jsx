@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/hook";
 import { updateProfile } from "firebase/auth";
+import { toast } from "react-toastify";
 
 const Registration = () => {
   const [err, setErr] = useState("");

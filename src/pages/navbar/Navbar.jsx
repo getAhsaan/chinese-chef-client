@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import Button from "../../components/Button";
 import { useAuth } from "../../hooks/hook";
 import { Tooltip } from "react-tooltip";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -12,6 +13,7 @@ const Navbar = () => {
     logOut()
       .then(() => {
         console.log("log out successful");
+        toast.success("logout successful");
       })
       .catch((err) => console.log(err));
   };
@@ -51,7 +53,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <NavLink className="btn btn-ghost normal-case text-xl text-secondary">
+        <NavLink className="btn btn-ghost normal-case text-base lg:text-xl text-secondary px-1">
           Chinese Recipe Hunter
         </NavLink>
       </div>
